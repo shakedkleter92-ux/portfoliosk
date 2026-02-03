@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TERMINAL // PORTFOLIO</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,700;1,400&family=Orbitron:wght@400;500;700;900&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Tektur:wght@400;500;700;900&display=swap"
+        rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.160.0/three.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="target-cursor.css">
+    <link rel="stylesheet" href="folder.css">
+    <link rel="stylesheet" href="cursor-override.css">
+</head>
+
+<body>
+
+    <!-- CRT Overlay -->
+    <div class="scanlines"></div>
+    <div class="noise"></div>
+
+    <!-- BOOT SCREEN -->
+    <div id="boot-screen">
+        <canvas id="glitch-canvas" class="glitch-background"></canvas>
+        <div class="boot-container">
+
+            <div class="boot-terminal">
+                <div id="boot-log"></div>
+                <div class="typing-cursor">_</div>
+            </div>
+            <div class="boot-actions hidden">
+                <button id="btn-enter" class="cyber-btn-large star-border-btn cursor-target">
+                    <div class="btn-border-top"></div>
+                    <div class="btn-border-bottom"></div>
+                    <div class="btn-border-left"></div>
+                    <div class="btn-border-right"></div>
+                    <span class="btn-content">ACCEPT TRANSMISSION</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN INTERFACE (Hidden initially) -->
+    <div id="main-interface" class="hidden">
+
+        <!-- GLOBAL VISUAL FRAME (Static Overlay) -->
+        <div id="global-frame" class="terminal-frame">
+
+            <!-- FRAME HEADER (Top Strip) -->
+            <header class="frame-header">
+                <div class="hud-left">
+                    <span class="status-indicator online"></span>
+                    <span class="sys-text">SYS.ONLINE</span>
+                </div>
+                <div class="hud-center">
+                    <span class="location-text">LOC: 32.7940° N, 34.9896° E</span>
+                </div>
+                <div class="hud-right">
+                    <div id="clock">00:00:00 UTC</div>
+                    <button id="sound-toggle" class="icon-btn">MUTED</button>
+                </div>
+            </header>
+
+            <!-- MAIN CONTENT AREA (Scrollable Window) -->
+            <main id="content-window" class="content-wrapper">
+
+                <!-- HERO SECTION -->
+                <section id="hero" class="screen-section active-section">
+                    <div class="hero-content">
+                        <div class="role-badge">INTERACTIVE // VISUAL_DESIGN</div>
+                        <h1 class="hero-title glitch-text" data-text="SHAKED KLETTER" data-shuffle
+                            data-shuffle-hover="true" data-shuffle-once="false" data-shuffle-duration="0.4"
+                            data-shuffle-stagger="0.04">SHAKED KLETTER</h1>
+                        <p class="hero-subtitle">HUMAN-CENTERED INTERFACES</p>
+                        <div class="terminal-prompt">
+                            <span class="prompt-user">root@shaked:~$</span>
+                            <span class="prompt-cmd">sh ./init_portfolio.sh</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ABOUT SECTION -->
+                <section id="about" class="screen-section hidden-section">
+                    <div class="hero-content">
+                        <div class="role-badge">PROFILE_DATA</div>
+                        <h2 class="section-title" data-shuffle data-shuffle-hover="true" data-shuffle-once="false"
+                            data-shuffle-duration="0.35" data-shuffle-stagger="0.03">// 01_ABOUT</h2>
+                        <p>> BORN IN 1992, HAIFA.</p>
+                        <p>> FMR TATTOO ARTIST & VISUAL COMM GRADUATE.</p>
+                        <p>> PASSIONATE ABOUT CODE, INTERFACES & VIDEO GAMES.</p>
+                        <p>> EXPLORING PHYSICAL-DIGITAL INTERACTIONS.</p>
+                        <div class="terminal-prompt">
+                            <span class="prompt-user">CORE:</span>
+                            <span class="prompt-cmd">UX/UI, CONCEPT DEV</span>
+                        </div>
+                        <div class="terminal-prompt">
+                            <span class="prompt-user">TECH:</span>
+                            <span class="prompt-cmd">CREATIVE CODING, 3D, MOTION</span>
+                        </div>
+                        <div class="terminal-prompt">
+                            <span class="prompt-user">TOOLS:</span>
+                            <span class="prompt-cmd">ASEPRITE, P5.JS, WEB</span>
+                        </div>
+                        <div class="terminal-prompt">
+                            <span class="prompt-user">STATUS:</span>
+                            <span class="prompt-cmd blink-text">AVAILABLE</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- PROJECTS SECTION -->
+                <section id="projects" class="screen-section hidden-section">
+                    <div class="hero-content projects-content">
+                        <div class="role-badge">SELECTED_WORKS</div>
+                        <h2 class="section-title" data-shuffle data-shuffle-hover="true" data-shuffle-once="false"
+                            data-shuffle-duration="0.35" data-shuffle-stagger="0.03">// 02_PROJECTS</h2>
+                        <div class="folders-container" id="folders-container">
+                            <!-- Folders will be generated by JS -->
+                        </div>
+                    </div>
+                </section>
+
+                <!-- CONTACT SECTION -->
+                <section id="contact" class="screen-section hidden-section">
+                    <div class="hero-content">
+                        <div class="role-badge">ESTABLISH_CONTACT</div>
+                        <h2 class="section-title" data-shuffle data-shuffle-hover="true" data-shuffle-once="false"
+                            data-shuffle-duration="0.35" data-shuffle-stagger="0.03">// 03_CONTACT</h2>
+                        <p>> ESTABLISH SECURE CHANNEL?</p>
+                        <p>> [Y/N]: Y</p>
+                        <p>> CONNECTING TO SERVER...</p>
+                        <div class="contact-links-line">
+                            <a href="https://www.instagram.com/graphic__sk?igsh=MXJ0aXB6bnY5bjUyZA%3D%3D&utm_source=qr"
+                                target="_blank" class="terminal-link">INSTAGRAM_EXT</a>
+                            <a href="mailto:shakedkleter92@gmail.com" class="terminal-link">EMAIL_UPLINK</a>
+                            <a href="https://wa.me/972545444579" target="_blank" class="terminal-link">WHATSAPP</a>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- PROJECT DETAIL OVERLAY -->
+                <!-- FULL SCREEN PROJECT OVERLAY (Terminal Style) -->
+                <section id="project-detail-overlay" class="project-overlay hidden">
+
+                    <!-- LIGHTBOX LAYER -->
+                    <div id="project-lightbox" class="lightbox-overlay hidden">
+                        <div class="lightbox-content-wrapper">
+                            <button class="lightbox-nav lightbox-nav-left" id="lightbox-prev">‹</button>
+                            <div class="lightbox-content">
+                                <img id="lightbox-img" src="" alt="Full View">
+                                <video id="lightbox-video" muted controls loop playsinline class="hidden"></video>
+                            </div>
+                            <button class="lightbox-nav lightbox-nav-right" id="lightbox-next">›</button>
+                        </div>
+                        <button id="lightbox-close" class="lightbox-close-btn">[CLOSE_MEDIA]</button>
+                    </div>
+
+                    <!-- TERMINAL FRAME CONTAINER -->
+                    <div class="terminal-project-view">
+                        <div class="terminal-header-bar">
+                            <span class="term-status">>> SYSTEM.VIEWER // ACTIVE</span>
+                            <button id="btn-close-project" class="term-close-btn">[X]</button>
+                        </div>
+
+                        <div class="terminal-body-scroll">
+                            <!-- PROJECT HEADER -->
+                            <div class="term-project-header">
+                                <h1 id="detail-title">PROJECT_NAME</h1>
+                                <div class="term-meta-row">
+                                    <span id="detail-year">2024</span> <span class="sep">//</span> <span
+                                        id="detail-role">ROLE</span>
+                                </div>
+                            </div>
+
+                            <!-- COMPACT DESCRIPTION -->
+                            <div class="term-desc-container">
+                                <p id="detail-desc" class="term-desc-text">
+                                    Loading project data...
+                                </p>
+                            </div>
+
+                            <!-- MEDIA GRID HEADER -->
+                            <div class="term-section-divider">
+                                <span>MEDIA_ASSETS</span>
+                                <div class="divider-line"></div>
+                            </div>
+
+                            <!-- HORIZONTAL GALLERY WITH ARROWS -->
+                            <div class="gallery-container">
+                                <button class="gallery-arrow gallery-arrow-left" id="gallery-arrow-left">‹</button>
+                                <div class="term-media-grid" id="project-gallery-grid">
+                                    <!-- Thumbnails injected by JS -->
+                                </div>
+                                <button class="gallery-arrow gallery-arrow-right" id="gallery-arrow-right">›</button>
+                            </div>
+
+                            <!-- PROJECT NAVIGATION -->
+                            <div class="project-nav-container">
+                                <button id="btn-prev-project" class="project-nav-btn">‹ PREV PROJECT</button>
+                                <button id="btn-next-project" class="project-nav-btn">NEXT PROJECT ›</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+            </main>
+
+            <!-- SIDE HUD (Docked to Frame Right) -->
+            <aside class="frame-sidebar">
+                <nav id="side-hud">
+                    <ul>
+                        <li class="hud-item active" data-index="0">
+                            <span class="hud-label">00_INTRO</span>
+                            <div class="hud-pip"></div>
+                        </li>
+                        <li class="hud-item" data-index="1">
+                            <span class="hud-label">01_ABOUT</span>
+                            <div class="hud-pip"></div>
+                        </li>
+                        <li class="hud-item" data-index="2">
+                            <span class="hud-label">02_WORK</span>
+                            <div class="hud-pip"></div>
+                        </li>
+                        <li class="hud-item" data-index="3">
+                            <span class="hud-label">03_COMM</span>
+                            <div class="hud-pip"></div>
+                        </li>
+                    </ul>
+                    <!-- Progress Bar Track -->
+                    <div class="progress-track">
+                        <div class="progress-bar" id="scroll-progress"></div>
+                    </div>
+                </nav>
+            </aside>
+
+            <!-- FRAME FOOTER (Bottom Strip) -->
+            <footer class="frame-footer">
+                <div class="footer-left">COPYRIGHT 2026 © SHAKED KLETTER</div>
+                <div class="footer-right">SYS.VER.2.0.5</div>
+            </footer>
+
+        </div> <!-- End Global Frame -->
+
+    </div>
+
+    <!-- 3D Background Canvas -->
+    <div id="canvas-container"></div>
+
+    <script src="glitch-background.js"></script>
+    <script src="text-shuffle.js"></script>
+    <script src="target-cursor.js"></script>
+    <script src="folder.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>

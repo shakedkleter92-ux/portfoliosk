@@ -1,0 +1,15 @@
+/* Text Shuffle Effect Styles */
+.shuffle-char {
+    display: inline-block;
+    transition: transform 0.1s ease;
+}
+
+/* Ensure headers maintain their styling with shuffle */
+[data-shuffle] {
+    cursor: default;
+    position: relative;
+}
+
+[data-shuffle]:hover .shuffle-char {
+    color: var(--neon-green);
+}
