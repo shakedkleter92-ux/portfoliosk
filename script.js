@@ -606,7 +606,7 @@ const projectsData = {
         heroImg: "reframe_media/Screenshot 2025-08-10 at 15.54.43.png",
         heroVideo: "reframe_media/01 - IMG_2255.mp4",
         gallery: [
-            "reframe_media/reframe_recording_compressed.mp4",
+            "reframe_media/reframe_small.mp4",
             "reframe_media/IMG_2257.jpg",
             "reframe_media/IMG_2258.JPG",
             "reframe_media/IMG_5807.jpeg"
@@ -617,9 +617,9 @@ const projectsData = {
         role: "INTERACTIVE DESIGN · UX/UI",
         year: "2025",
         desc: "An interactive tribute to Vicious Delicious (2007) by Infected Mushroom, where users control music playback and visuals through real-time hand gestures, turning the album into a performative experience.",
-        heroVideo: "interactive_album/squer_interface_compressed720.mp4",
+        heroVideo: "interactive_album/squer_small.mp4",
         gallery: [
-            "interactive_album/simulation_square_compressed720.mp4",
+            "interactive_album/simulation_small.mp4",
             "interactive_album/Screenshot 2026-02-02 at 16.39.53.png"
         ]
     },
@@ -628,7 +628,7 @@ const projectsData = {
         role: "INTERACTIVE DESIGN · UX/UI",
         year: "2025",
         desc: "A humorous and critical interactive remix that blends Looney Tunes characters with the Israeli government, using playfulness to comment on politics, power, and media culture.",
-        heroVideo: "looney_gov/interface_compressed.mp4",
+        heroVideo: "looney_gov/interface_small.mp4",
         gallery: [
             "looney_gov/Screenshot 2026-02-02 at 15.23.58.png",
             "looney_gov/Screenshot 2026-02-02 at 15.30.40.png",
