@@ -772,6 +772,19 @@ function openProject(id) {
     // For now, full desc as per structure, assuming user edits or data is short.
     document.getElementById('detail-desc').innerText = data.desc;
 
+    // Handle "Try It Yourself" button for specific projects
+    const tryItBtn = document.getElementById('try-it-btn');
+    if (id === '5') { // Infected Mushroom project
+        tryItBtn.href = 'https://shakedkleter92-ux.github.io/InteractiveAlbum_InfectedMushroom/';
+        tryItBtn.classList.remove('hidden');
+    } else if (id === '6') { // Looney Gov project
+        tryItBtn.href = 'https://shakedkleter92-ux.github.io/LooneyGov/';
+        tryItBtn.classList.remove('hidden');
+    } else {
+        tryItBtn.classList.add('hidden');
+    }
+
+
     // Build media list for lightbox navigation
     const mediaList = [];
 

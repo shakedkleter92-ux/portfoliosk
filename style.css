@@ -427,20 +427,49 @@ a {
 }
 
 /* Common Section Header */
-.section-header {
-    margin-bottom: 1.5rem;
-    width: 100%;
-    max-width: 800px;
+.term-project-header {
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--dim-green);
 }
 
-.section-header h2 {
+.header-title-row {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.term-project-header h1 {
     font-family: var(--font-tech);
     font-size: 2.5rem;
-    font-weight: 400;
-    /* Bold */
     margin: 0;
+    color: var(--neon-green);
     text-shadow: 0 0 10px rgba(57, 255, 20, 0.3);
 }
+
+.try-it-button {
+    background: transparent;
+    border: 1px solid var(--dim-green);
+    color: var(--dim-green);
+    padding: 0.6rem 1.2rem;
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    font-weight: normal;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+    display: inline-block;
+}
+
+.try-it-button:hover {
+    border-color: var(--neon-green);
+    color: var(--neon-green);
+    text-shadow: 0 0 10px var(--neon-green);
+    box-shadow: 0 0 15px rgba(57, 255, 20, 0.2);
+}
+
 
 /* Dynamic Year Indicator */
 .project-year-indicator {
@@ -1695,6 +1724,12 @@ a {
     .term-desc-text {
         font-size: 0.85rem;
     }
+
+    .try-it-button {
+        font-size: 0.7rem;
+        padding: 0.4rem 0.8rem;
+    }
+
 
     .gallery-arrow {
         width: 35px;
