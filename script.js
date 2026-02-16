@@ -201,8 +201,8 @@ function initCarousel() {
     // Clear existing content
     container.innerHTML = '';
 
-    // Custom project order (left to right as specified)
-    const projectOrder = [5, 6, 4, 2, 3, 7, 1]; // interactive album, looney gov, re-frame, monsters, spacetech, freetype, clickbait
+    // Custom project order (left to right as specified) - chronological
+    const projectOrder = [8, 5, 6, 4, 2, 3, 7, 1]; // water drop seq (2026), interactive album (2025), looney gov, re-frame, monsters, spacetech, freetype, clickbait (2024)
     const sortedProjects = projectOrder.map(id => String(id));
 
     // Create folders for each project
@@ -425,10 +425,10 @@ const geometry = new THREE.BufferGeometry();
 geometry.setAttribute('position', new THREE.BufferAttribute(currentPos, 3));
 
 const material = new THREE.PointsMaterial({
-    size: 0.025, // Increased size for better visibility
+    size: 0.08, // Increased size for much better visibility (3.2x larger)
     color: 0x39FF14,
     transparent: true,
-    opacity: 0.9, // Also increased opacity slightly
+    opacity: 0.9,
     sizeAttenuation: true
 });
 
@@ -452,11 +452,11 @@ function updateBackgroundState(sectionId) {
     // 1. Trigger Explosion
     targetPos = layouts.explosion;
 
-    // 2. Change Color based on section
-    if (sectionId === 'hero') material.color.setHex(0x39FF14);
-    else if (sectionId === 'about') material.color.setHex(0x00FFFF);
-    else if (sectionId === 'projects') material.color.setHex(0xFF00FF);
-    else if (sectionId === 'contact') material.color.setHex(0xFFAA00);
+    // 2. Change Color based on section (only green/white)
+    if (sectionId === 'hero') material.color.setHex(0x39FF14);      // Green
+    else if (sectionId === 'about') material.color.setHex(0xFFFFFF);  // White
+    else if (sectionId === 'projects') material.color.setHex(0x39FF14); // Green
+    else if (sectionId === 'contact') material.color.setHex(0xFFFFFF);  // White
 
     // 3. Rebuild Sphere after a short delay
     setTimeout(() => {
@@ -537,6 +537,28 @@ function updateClock() {
 setInterval(updateClock, 1000);
 updateClock();
 
+// --- BACKGROUND MUSIC CONTROL ---
+const bgMusic = document.getElementById('background-music');
+const muteBtn = document.getElementById('mute-toggle');
+let isMuted = true; // Start muted
+
+if (muteBtn && bgMusic) {
+    muteBtn.addEventListener('click', () => {
+        isMuted = !isMuted;
+        bgMusic.muted = isMuted;
+
+        if (isMuted) {
+            muteBtn.textContent = 'UNMUTE';
+            muteBtn.classList.add('muted');
+            bgMusic.pause();
+        } else {
+            muteBtn.textContent = 'MUTE';
+            muteBtn.classList.remove('muted');
+            bgMusic.play().catch(e => console.log('Audio play failed:', e));
+        }
+    });
+}
+
 // --- PROJECT DATA ---
 const projectsData = {
     1: {
@@ -547,9 +569,9 @@ const projectsData = {
         company: "WIX",
         instructor: "RONIT RAZIEL",
         desc: "Created in collaboration with Wix, Clickbait is a fictional electro-pop artist with a fully branded digital identity. The project features a responsive website, custom 3D visuals, and themed merchandise, exploring the intersection of branding, web design, and storytelling.",
-        process: "Creating Clickbait allowed us to invent an entire world—from the artist’s sound and image to every touchpoint of their digital presence. The project became a playground for experimentation: chrome textures, glitchy typography, surreal compositions, and bold UI interactions.",
+        process: "Creating Clickbait allowed us to invent an entire world—from the artist's sound and image to every touchpoint of their digital presence. The project became a playground for experimentation: chrome textures, glitchy typography, surreal compositions, and bold UI interactions.",
         heroImg: "web_media/Screenshot 2025-06-13 at 10.07_edited.jpg",
-        heroVideo: "web_media/clickbait_hero_compressed.mp4",
+        heroVideo: { type: 'vimeo', embedCode: '<div style="padding:50.26% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/1163952724?title=0&byline=0&portrait=0&badge=0&autopause=0&player_id=0&app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="clickbait_hero_compressed"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>' },
         gallery: [
             "web_media/Screenshot 2025-06-13 at 10.07_edited.jpg",
             "web_media/Screenshot 2025-06-13 at 10.07_edited.png",
@@ -566,11 +588,11 @@ const projectsData = {
         year: "2025",
         desc: "A digital archive of procedurally generated creatures. This project explores organic forms and synthetic textures using Blender and Three.js.",
         heroImg: "monsters_media/Screenshot 2025-09-14 at 12.24.17.png",
-        heroVideo: "monsters_media/asmodeus_monster.mp4",
+        heroVideo: { type: 'vimeo', embedCode: '<div style="padding:177.78% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/1163952952?title=0&byline=0&portrait=0&badge=0&autopause=0&player_id=0&app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="asmodeus_monster"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>' },
         gallery: [
-            "monsters_media/two_sisters_tale.mp4",
-            "monsters_media/porsche.mp4",
-            "monsters_media/father_commandment.mp4",
+            { type: 'vimeo', embedCode: '<div style="padding:177.78% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/1163953011?title=0&byline=0&portrait=0&badge=0&autopause=0&player_id=0&app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="two_sisters_tale"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>' },
+            { type: 'vimeo', embedCode: '<div style="padding:177.78% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/1163953039?title=0&byline=0&portrait=0&badge=0&autopause=0&player_id=0&app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="porsche"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>' },
+            { type: 'vimeo', embedCode: '<div style="padding:177.78% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/1163952979?title=0&byline=0&portrait=0&badge=0&autopause=0&player_id=0&app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="father_commandment"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>' },
             "monsters_media/1.png",
             "monsters_media/Screenshot 2025-09-14 at 12.24.17.png",
             "monsters_media/Screenshot 2025-09-14 at 12.24.26.png",
@@ -583,7 +605,7 @@ const projectsData = {
         year: "2025",
         desc: "A retro-futuristic pixel art game interface. Designed to simulate the control panel of a deep-space mining vessel.",
         heroImg: "spsacetech_media/Screenshot 2025-06-24 at 15.36.10.png",
-        heroVideo: "spsacetech_media/c3109aad-cd0b-46e5-a5f8-05a5da43cbc0.MP4",
+        heroVideo: { type: 'vimeo', embedCode: '<div style="padding:66.67% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/1163953071?title=0&byline=0&portrait=0&badge=0&autopause=0&player_id=0&app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="c3109aad-cd0b-46e5-a5f8-05a5da43cbc0"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>' },
         gallery: [
             "spsacetech_media/Screenshot 2025-06-24 at 15.36.10.png",
             "spsacetech_media/Screenshot 2025-06-24 at 15.36.18.png",
@@ -604,9 +626,9 @@ const projectsData = {
         year: "2025",
         desc: "An experimental interface challenging the concept of 'truth' in digital media. Interactive layers of distortion reveal hidden messages.",
         heroImg: "reframe_media/Screenshot 2025-08-10 at 15.54.43.png",
-        heroVideo: "reframe_media/01 - IMG_2255.mp4",
+        heroVideo: { type: 'vimeo', embedCode: '<div style="padding:56.3% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/1163953145?title=0&byline=0&portrait=0&badge=0&autopause=0&player_id=0&app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="01 - IMG_2255"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>' },
         gallery: [
-            "reframe_media/reframe_small.mp4",
+            { type: 'vimeo', embedCode: '<div style="padding:71.09% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/1163953098?title=0&byline=0&portrait=0&badge=0&autopause=0&player_id=0&app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="reframe_recording_compressed"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>' },
             "reframe_media/IMG_2257.jpg",
             "reframe_media/IMG_2258.JPG",
             "reframe_media/IMG_5807.jpeg"
@@ -615,20 +637,20 @@ const projectsData = {
     5: {
         title: "VICIOUS DELICIOUS",
         role: "INTERACTIVE DESIGN · UX/UI",
-        year: "2025",
+        year: "2026",
         desc: "An interactive tribute to Vicious Delicious (2007) by Infected Mushroom, where users control music playback and visuals through real-time hand gestures, turning the album into a performative experience.",
-        heroVideo: "interactive_album/squer_small.mp4",
+        heroVideo: { type: 'vimeo', embedCode: '<div style="padding:70.08% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/1163953273?badge=0&autopause=0&player_id=0&app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="squer_interface_compressed720"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>' },
         gallery: [
-            "interactive_album/simulation_small.mp4",
+            { type: 'vimeo', embedCode: '<div style="padding:100% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/1163953230?badge=0&autopause=0&player_id=0&app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="simulation_square_compressed720"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>' },
             "interactive_album/Screenshot 2026-02-02 at 16.39.53.png"
         ]
     },
     6: {
         title: "LOONEY GOV",
         role: "INTERACTIVE DESIGN · UX/UI",
-        year: "2025",
+        year: "2026",
         desc: "A humorous and critical interactive remix that blends Looney Tunes characters with the Israeli government, using playfulness to comment on politics, power, and media culture.",
-        heroVideo: "looney_gov/interface_small.mp4",
+        heroVideo: { type: 'vimeo', embedCode: '<div style="padding:72.6% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/1163952661?title=0&byline=0&portrait=0&badge=0&autopause=0&player_id=0&app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="interface_compressed"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>' },
         gallery: [
             "looney_gov/Screenshot 2026-02-02 at 15.23.58.png",
             "looney_gov/Screenshot 2026-02-02 at 15.30.40.png",
@@ -641,12 +663,38 @@ const projectsData = {
         role: "TYPOGRAPHY DESIGN",
         year: "2025",
         desc: "An experimental typography project combining ready-made letterforms from aerial agricultural imagery and a custom grid-based type system, resulting in the creation of the \"Atomic Font.\"",
-        heroVideo: "free type/Comp 1.mp4",
+        heroVideo: { type: 'vimeo', embedCode: '<div style="padding:100% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/1163952898?title=0&byline=0&portrait=0&badge=0&autopause=0&player_id=0&app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="Comp 1"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>' },
         gallery: [
-            "free type/Comp 1_1.mp4",
+            { type: 'vimeo', embedCode: '<div style="padding:100% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/1163952917?title=0&byline=0&portrait=0&badge=0&autopause=0&player_id=0&app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="Comp 1_1"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>' },
             "free type/final_explosion_font_22.jpg",
             "free type/alphabet.png",
             "free type/poster.png"
+        ]
+    },
+    8: {
+        title: "WATER DROP SEQ",
+        role: "SENSORY RESEARCH · UX/UI",
+        year: "2026",
+        desc: "This project was developed as part of a sensory research lab focusing on the sense of direction. Rather than navigation, the project explores spatial awareness and orientation through visual and physical experimentation.",
+        tryItUrl: "https://shakedkleter92-ux.github.io/waterdropsequencer/",
+        labUrl: "https://www.interlab26.com/home-1-1-1-1",
+        heroVideo: {
+            type: 'vimeo',
+            embedCode: '<div style="padding:177.78% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/1163956318?title=0&byline=0&portrait=0&badge=0&autopause=0&player_id=0&app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="presentation Weater Drop Seq"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>'
+        },
+        gallery: [
+            { type: 'vimeo', embedCode: '<div style="padding:177.78% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/1163953761?title=0&byline=0&portrait=0&badge=0&autopause=0&player_id=0&app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="presentation Weater Drop Seq_project"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>' },
+            { type: 'vimeo', embedCode: '<div style="padding:100.17% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/1163956280?title=0&byline=0&portrait=0&badge=0&autopause=0&player_id=0&app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="12"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>' },
+            "waterdrop_seq/1.JPG",
+            "waterdrop_seq/2.JPEG",
+            "waterdrop_seq/3.JPG",
+            "waterdrop_seq/5.JPEG",
+            "waterdrop_seq/6.JPG",
+            "waterdrop_seq/7.JPEG",
+            "waterdrop_seq/8.JPEG",
+            "waterdrop_seq/9.JPEG",
+            "waterdrop_seq/10.JPEG",
+            "waterdrop_seq/11.JPG"
         ]
     }
 };
@@ -714,11 +762,24 @@ function openLightbox(src, type) {
     const lightbox = document.getElementById('project-lightbox');
     const img = document.getElementById('lightbox-img');
     const video = document.getElementById('lightbox-video');
+    const vimeoDiv = document.getElementById('lightbox-vimeo');
 
     if (!lightbox) return;
 
-    if (type === 'video') {
+    if (type === 'vimeo') {
+        // Hide other media types
         img.classList.add('hidden');
+        video.classList.add('hidden');
+        video.pause();
+
+        // Show and populate Vimeo embed
+        vimeoDiv.classList.remove('hidden');
+        vimeoDiv.innerHTML = src;
+    } else if (type === 'video') {
+        img.classList.add('hidden');
+        vimeoDiv.classList.add('hidden');
+        vimeoDiv.innerHTML = '';
+
         video.classList.remove('hidden');
         video.src = src;
         video.muted = true; // Ensure video plays without sound
@@ -726,6 +787,9 @@ function openLightbox(src, type) {
     } else {
         video.classList.add('hidden');
         video.pause();
+        vimeoDiv.classList.add('hidden');
+        vimeoDiv.innerHTML = '';
+
         img.classList.remove('hidden');
         img.src = src;
     }
@@ -739,6 +803,7 @@ function openLightbox(src, type) {
 function closeLightbox() {
     const lightbox = document.getElementById('project-lightbox');
     const video = document.getElementById('lightbox-video');
+    const vimeoDiv = document.getElementById('lightbox-vimeo');
 
     if (lightbox) {
         lightbox.classList.remove('active');
@@ -748,9 +813,57 @@ function closeLightbox() {
                 video.pause();
                 video.src = "";
             }
+            if (vimeoDiv) {
+                vimeoDiv.innerHTML = '';
+            }
         }, 300);
     }
 }
+
+// Helper function to create Vimeo thumbnail
+function createVimeoThumbnail(embedCode, index, mediaList) {
+    const container = document.createElement('div');
+    container.classList.add('media-thumbnail', 'vimeo-thumbnail');
+
+    // Extract video ID from embed code to get thumbnail
+    const vimeoIdMatch = embedCode.match(/vimeo\.com\/video\/(\d+)/);
+    const vimeoId = vimeoIdMatch ? vimeoIdMatch[1] : null;
+
+    if (vimeoId) {
+        // Create a small preview iframe (will be replaced with thumbnail image if possible)
+        const preview = document.createElement('div');
+        preview.style.cssText = 'width:100%;height:100%;position:relative;background:#000;display:flex;align-items:center;justify-content:center;';
+
+        // Add play icon overlay
+        const playIcon = document.createElement('div');
+        playIcon.innerHTML = '▶';
+        playIcon.style.cssText = 'color:#39FF14;font-size:3rem;pointer-events:none;';
+        preview.appendChild(playIcon);
+
+        container.appendChild(preview);
+
+        // Try to fetch Vimeo thumbnail
+        fetch(`https://vimeo.com/api/v2/video/${vimeoId}.json`)
+            .then(res => res.json())
+            .then(data => {
+                if (data && data[0] && data[0].thumbnail_large) {
+                    preview.style.backgroundImage = `url(${data[0].thumbnail_large})`;
+                    preview.style.backgroundSize = 'cover';
+                    preview.style.backgroundPosition = 'center';
+                }
+            })
+            .catch(e => console.log('Could not load Vimeo thumbnail:', e));
+    } else {
+        // Fallback: just show play icon
+        container.innerHTML = '<div style="width:100%;height:100%;background:#000;display:flex;align-items:center;justify-content:center;"><span style="color:#39FF14;font-size:3rem;">▶</span></div>';
+    }
+
+    // Click handler
+    container.addEventListener('click', () => openLightboxWithIndex(embedCode, 'vimeo', mediaList, index));
+
+    return container;
+}
+
 
 function openProject(id) {
     const data = projectsData[id];
@@ -772,16 +885,28 @@ function openProject(id) {
     // For now, full desc as per structure, assuming user edits or data is short.
     document.getElementById('detail-desc').innerText = data.desc;
 
-    // Handle "Try It Yourself" button for specific projects
+    // Handle "Try It Yourself" button - use data from projectsData
     const tryItBtn = document.getElementById('try-it-btn');
-    if (id === '5') { // Infected Mushroom project
+    if (data.tryItUrl) {
+        tryItBtn.href = data.tryItUrl;
+        tryItBtn.classList.remove('hidden');
+    } else if (id === '5') { // Fallback for Infected Mushroom project
         tryItBtn.href = 'https://shakedkleter92-ux.github.io/InteractiveAlbum_InfectedMushroom/';
         tryItBtn.classList.remove('hidden');
-    } else if (id === '6') { // Looney Gov project
+    } else if (id === '6') { // Fallback for Looney Gov project
         tryItBtn.href = 'https://shakedkleter92-ux.github.io/LooneyGov/';
         tryItBtn.classList.remove('hidden');
     } else {
         tryItBtn.classList.add('hidden');
+    }
+
+    // Handle "Lab Website" button - use data from projectsData
+    const labBtn = document.getElementById('lab-website-btn');
+    if (data.labUrl) {
+        labBtn.href = data.labUrl;
+        labBtn.classList.remove('hidden');
+    } else {
+        labBtn.classList.add('hidden');
     }
 
 
@@ -790,17 +915,25 @@ function openProject(id) {
 
     // Add Hero Video first if exists
     if (data.heroVideo) {
-        mediaList.push({ src: data.heroVideo, type: 'video' });
+        if (typeof data.heroVideo === 'object' && data.heroVideo.type === 'vimeo') {
+            mediaList.push({ src: data.heroVideo.embedCode, type: 'vimeo' });
+        } else {
+            mediaList.push({ src: data.heroVideo, type: 'video' });
+        }
     }
 
     // Add Gallery Media
     if (data.gallery) {
-        data.gallery.forEach(src => {
-            const ext = src.split('.').pop().toLowerCase();
-            if (['mov', 'mp4', 'webm'].includes(ext)) {
-                mediaList.push({ src: src, type: 'video' });
-            } else if (['jpg', 'jpeg', 'png', 'gif', 'webp'].includes(ext)) {
-                mediaList.push({ src: src, type: 'image' });
+        data.gallery.forEach(item => {
+            if (typeof item === 'object' && item.type === 'vimeo') {
+                mediaList.push({ src: item.embedCode, type: 'vimeo' });
+            } else if (typeof item === 'string') {
+                const ext = item.split('.').pop().toLowerCase();
+                if (['mov', 'mp4', 'webm'].includes(ext)) {
+                    mediaList.push({ src: item, type: 'video' });
+                } else if (['jpg', 'jpeg', 'png', 'gif', 'webp'].includes(ext)) {
+                    mediaList.push({ src: item, type: 'image' });
+                }
             }
         });
     }
@@ -811,61 +944,76 @@ function openProject(id) {
 
     // Add Hero Video as Thumbnail if exists
     if (data.heroVideo) {
-        const vidThumb = document.createElement('video');
-        vidThumb.src = data.heroVideo;
-        vidThumb.muted = true;
-        vidThumb.classList.add('media-thumbnail');
+        if (typeof data.heroVideo === 'object' && data.heroVideo.type === 'vimeo') {
+            // Create Vimeo thumbnail
+            const vimeoThumb = createVimeoThumbnail(data.heroVideo.embedCode, 0, mediaList);
+            grid.appendChild(vimeoThumb);
+        } else {
+            // Local video thumbnail
+            const vidThumb = document.createElement('video');
+            vidThumb.src = data.heroVideo;
+            vidThumb.muted = true;
+            vidThumb.classList.add('media-thumbnail');
 
-        // On hover play?
-        vidThumb.addEventListener('mouseenter', () => vidThumb.play());
-        vidThumb.addEventListener('mouseleave', () => {
-            vidThumb.pause();
-            vidThumb.currentTime = 0;
-        });
+            // On hover play?
+            vidThumb.addEventListener('mouseenter', () => vidThumb.play());
+            vidThumb.addEventListener('mouseleave', () => {
+                vidThumb.pause();
+                vidThumb.currentTime = 0;
+            });
 
-        // On click open lightbox with navigation
-        vidThumb.addEventListener('click', () => openLightboxWithIndex(data.heroVideo, 'video', mediaList, 0));
-        grid.appendChild(vidThumb);
+            // On click open lightbox with navigation
+            vidThumb.addEventListener('click', () => openLightboxWithIndex(data.heroVideo, 'video', mediaList, 0));
+            grid.appendChild(vidThumb);
+        }
     }
 
     // Add Gallery Media (videos and images)
     let mediaIndex = data.heroVideo ? 1 : 0; // Start after hero video if exists
 
     if (data.gallery) {
-        data.gallery.forEach(src => {
-            const ext = src.split('.').pop().toLowerCase();
+        data.gallery.forEach(item => {
             const currentIndex = mediaIndex;
 
-            if (['mov', 'mp4', 'webm'].includes(ext)) {
-                const vidThumb = document.createElement('video');
-                vidThumb.src = src;
-                vidThumb.muted = true;
-                vidThumb.preload = 'metadata'; // Load video metadata
-                vidThumb.playsInline = true; // Required for iOS
-                vidThumb.setAttribute('playsinline', ''); // Also set as attribute
-                vidThumb.classList.add('media-thumbnail');
-
-                // Add error handling
-                vidThumb.addEventListener('error', (e) => {
-                    console.error('Video failed to load:', src, e);
-                });
-
-                vidThumb.addEventListener('mouseenter', () => vidThumb.play().catch(e => console.log('Play failed:', e)));
-                vidThumb.addEventListener('mouseleave', () => {
-                    vidThumb.pause();
-                    vidThumb.currentTime = 0;
-                });
-                vidThumb.addEventListener('click', () => openLightboxWithIndex(src, 'video', mediaList, currentIndex));
-                grid.appendChild(vidThumb);
+            if (typeof item === 'object' && item.type === 'vimeo') {
+                // Vimeo embed
+                const vimeoThumb = createVimeoThumbnail(item.embedCode, currentIndex, mediaList);
+                grid.appendChild(vimeoThumb);
                 mediaIndex++;
-            }
-            else if (['jpg', 'jpeg', 'png', 'gif', 'webp'].includes(ext)) {
-                const img = document.createElement('img');
-                img.src = src;
-                img.classList.add('media-thumbnail');
-                img.addEventListener('click', () => openLightboxWithIndex(src, 'image', mediaList, currentIndex));
-                grid.appendChild(img);
-                mediaIndex++;
+            } else if (typeof item === 'string') {
+                const ext = item.split('.').pop().toLowerCase();
+
+                if (['mov', 'mp4', 'webm'].includes(ext)) {
+                    const vidThumb = document.createElement('video');
+                    vidThumb.src = item;
+                    vidThumb.muted = true;
+                    vidThumb.preload = 'metadata'; // Load video metadata
+                    vidThumb.playsInline = true; // Required for iOS
+                    vidThumb.setAttribute('playsinline', ''); // Also set as attribute
+                    vidThumb.classList.add('media-thumbnail');
+
+                    // Add error handling
+                    vidThumb.addEventListener('error', (e) => {
+                        console.error('Video failed to load:', item, e);
+                    });
+
+                    vidThumb.addEventListener('mouseenter', () => vidThumb.play().catch(e => console.log('Play failed:', e)));
+                    vidThumb.addEventListener('mouseleave', () => {
+                        vidThumb.pause();
+                        vidThumb.currentTime = 0;
+                    });
+                    vidThumb.addEventListener('click', () => openLightboxWithIndex(item, 'video', mediaList, currentIndex));
+                    grid.appendChild(vidThumb);
+                    mediaIndex++;
+                }
+                else if (['jpg', 'jpeg', 'png', 'gif', 'webp'].includes(ext)) {
+                    const img = document.createElement('img');
+                    img.src = item;
+                    img.classList.add('media-thumbnail');
+                    img.addEventListener('click', () => openLightboxWithIndex(item, 'image', mediaList, currentIndex));
+                    grid.appendChild(img);
+                    mediaIndex++;
+                }
             }
         });
     }
@@ -899,7 +1047,7 @@ function closeProject() {
 
 // --- PROJECT NAVIGATION ---
 let currentProjectId = null;
-const projectOrder = [5, 6, 4, 2, 3, 7, 1]; // Same order as in folder display
+const projectOrder = [8, 5, 6, 4, 2, 3, 7, 1]; // Same order as in folder display - chronological
 
 function getProjectIds() {
     return projectOrder.map(id => String(id));
@@ -955,9 +1103,22 @@ function navigateLightboxMedia(direction) {
 function showLightboxMedia(src, type) {
     const img = document.getElementById('lightbox-img');
     const video = document.getElementById('lightbox-video');
+    const vimeoDiv = document.getElementById('lightbox-vimeo');
 
-    if (type === 'video') {
+    if (type === 'vimeo') {
+        // Hide other media types
         img.classList.add('hidden');
+        video.classList.add('hidden');
+        video.pause();
+
+        // Show and populate Vimeo embed
+        vimeoDiv.classList.remove('hidden');
+        vimeoDiv.innerHTML = src;
+    } else if (type === 'video') {
+        img.classList.add('hidden');
+        vimeoDiv.classList.add('hidden');
+        vimeoDiv.innerHTML = '';
+
         video.classList.remove('hidden');
         video.src = src;
         video.muted = true;
@@ -965,6 +1126,9 @@ function showLightboxMedia(src, type) {
     } else {
         video.classList.add('hidden');
         video.pause();
+        vimeoDiv.classList.add('hidden');
+        vimeoDiv.innerHTML = '';
+
         img.classList.remove('hidden');
         img.src = src;
     }

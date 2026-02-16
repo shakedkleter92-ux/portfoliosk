@@ -19,6 +19,11 @@
 
 <body>
 
+    <!-- Background Music -->
+    <audio id="background-music" loop>
+        <source src="backgrond_sound.m4a" type="audio/mp4">
+    </audio>
+
     <!-- CRT Overlay -->
     <div class="scanlines"></div>
     <div class="noise"></div>
@@ -61,7 +66,7 @@
                 </div>
                 <div class="hud-right">
                     <div id="clock">00:00:00 UTC</div>
-                    <button id="sound-toggle" class="icon-btn">MUTED</button>
+                    <button id="mute-toggle" class="icon-btn">MUTE</button>
                 </div>
             </header>
 
@@ -153,6 +158,7 @@
                             <div class="lightbox-content">
                                 <img id="lightbox-img" src="" alt="Full View">
                                 <video id="lightbox-video" muted controls loop playsinline class="hidden"></video>
+                                <div id="lightbox-vimeo" class="hidden"></div>
                             </div>
                             <button class="lightbox-nav lightbox-nav-right" id="lightbox-next">›</button>
                         </div>
@@ -170,13 +176,19 @@
                             <!-- PROJECT HEADER -->
                             <div class="term-project-header">
                                 <div class="header-title-row">
-                                    <h1 id="detail-title">PROJECT_NAME</h1>
-                                    <a id="try-it-btn" href="" target="_blank" class="try-it-button hidden">TRY IT
-                                        YOURSELF</a>
-                                </div>
-                                <div class="term-meta-row">
-                                    <span id="detail-year">2024</span> <span class="sep">//</span> <span
-                                        id="detail-role">ROLE</span>
+                                    <div class="title-container">
+                                        <h1 id="detail-title">PROJECT_NAME</h1>
+                                        <div class="term-meta-row">
+                                            <span id="detail-year">2024</span> <span class="sep">//</span> <span
+                                                id="detail-role">ROLE</span>
+                                        </div>
+                                    </div>
+                                    <div class="buttons-container">
+                                        <a id="try-it-btn" href="" target="_blank" class="try-it-button hidden">TRY IT
+                                            YOURSELF</a>
+                                        <a id="lab-website-btn" href="" target="_blank" class="try-it-button hidden">LAB
+                                            WEBSITE</a>
+                                    </div>
                                 </div>
                             </div>
 

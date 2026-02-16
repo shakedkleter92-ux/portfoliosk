@@ -428,24 +428,37 @@ a {
 
 /* Common Section Header */
 .term-project-header {
-    margin-bottom: 2rem;
-    padding-bottom: 1rem;
+    padding: 15px;
     border-bottom: 1px solid var(--dim-green);
 }
 
 .header-title-row {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
+    justify-content: space-between;
     gap: 1.5rem;
-    margin-bottom: 0.5rem;
+}
+
+.title-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.buttons-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
 }
 
 .term-project-header h1 {
     font-family: var(--font-tech);
     font-size: 2.5rem;
     margin: 0;
+    padding: 0;
     color: var(--neon-green);
     text-shadow: 0 0 10px rgba(57, 255, 20, 0.3);
+    line-height: 1;
 }
 
 .try-it-button {
@@ -461,6 +474,7 @@ a {
     transition: all 0.2s ease;
     white-space: nowrap;
     display: inline-block;
+    text-align: center;
 }
 
 .try-it-button:hover {
@@ -1459,9 +1473,14 @@ a {
         font-size: 0.7rem;
     }
 
-    #sound-toggle {
+    #mute-toggle {
         font-size: 0.65rem;
         padding: 2px 8px;
+    }
+
+    #mute-toggle.muted {
+        color: #ff4444;
+        border-color: #ff4444;
     }
 
     /* Sidebar becomes horizontal bottom nav */
@@ -1771,7 +1790,7 @@ a {
         font-size: 0.65rem;
     }
 
-    #sound-toggle {
+    #mute-toggle {
         font-size: 0.6rem;
         padding: 2px 6px;
     }
@@ -2031,8 +2050,10 @@ a {
     font-family: var(--font-mono);
     color: var(--neon-green);
     font-size: 0.9rem;
-    margin-top: 0.5rem;
+    margin: 0;
+    padding: 0;
     opacity: 0.8;
+    line-height: 1;
 }
 
 .term-meta-row .sep {
@@ -2193,6 +2214,39 @@ a {
     box-shadow: 0 0 30px rgba(57, 255, 20, 0.1);
 }
 
+/* Vimeo embed in lightbox */
+#lightbox-vimeo {
+    width: 90vw;
+    max-width: 1200px;
+    max-height: 80vh;
+    height: auto;
+    display: block;
+}
+
+/* Vimeo's responsive container uses padding-top for aspect ratio */
+#lightbox-vimeo>div {
+    position: relative !important;
+    max-height: 80vh;
+}
+
+/* Ensure iframe doesn't overflow */
+#lightbox-vimeo iframe {
+    max-height: 80vh !important;
+    border: 1px solid var(--neon-green);
+    box-shadow: 0 0 30px rgba(57, 255, 20, 0.1);
+}
+
+/* Vimeo thumbnail styling */
+.vimeo-thumbnail {
+    position: relative;
+    overflow: hidden;
+    background: #000;
+}
+
+.vimeo-thumbnail:hover {
+    box-shadow: 0 0 15px rgba(57, 255, 20, 0.3);
+}
+
 .lightbox-close-btn {
     margin-top: 1.5rem;
     background: transparent;
@@ -2202,6 +2256,8 @@ a {
     padding: 0.5rem 2rem;
     cursor: pointer;
     transition: all 0.2s;
+    position: relative;
+    z-index: 1000;
 }
 
 .lightbox-close-btn:hover {
