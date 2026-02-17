@@ -486,11 +486,29 @@ let mouseX = 0;
 let mouseY = 0;
 const mouseVector = new THREE.Vector3();
 
+// Mouse events
 document.addEventListener('mousemove', (e) => {
     // Normalised Device Coordinates
     mouseX = (e.clientX / window.innerWidth) * 2 - 1;
     mouseY = -(e.clientY / window.innerHeight) * 2 + 1;
 });
+
+// Touch events for mobile
+document.addEventListener('touchmove', (e) => {
+    if (e.touches.length > 0) {
+        const touch = e.touches[0];
+        mouseX = (touch.clientX / window.innerWidth) * 2 - 1;
+        mouseY = -(touch.clientY / window.innerHeight) * 2 + 1;
+    }
+}, { passive: true });
+
+document.addEventListener('touchstart', (e) => {
+    if (e.touches.length > 0) {
+        const touch = e.touches[0];
+        mouseX = (touch.clientX / window.innerWidth) * 2 - 1;
+        mouseY = -(touch.clientY / window.innerHeight) * 2 + 1;
+    }
+}, { passive: true });
 
 // SECTION LISTENER TO TRIGGER EXPLODE -> REBUILD
 function updateBackgroundState(sectionId) {
