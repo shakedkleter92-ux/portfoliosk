@@ -935,14 +935,18 @@ function openProject(id) {
     if (data.tryItUrl) {
         tryItBtn.href = data.tryItUrl;
         tryItBtn.classList.remove('hidden');
+        tryItBtn.style.display = 'inline-block';
     } else if (id === '5') { // Fallback for Infected Mushroom project
         tryItBtn.href = 'https://shakedkleter92-ux.github.io/InteractiveAlbum_InfectedMushroom/';
         tryItBtn.classList.remove('hidden');
+        tryItBtn.style.display = 'inline-block';
     } else if (id === '6') { // Fallback for Looney Gov project
         tryItBtn.href = 'https://shakedkleter92-ux.github.io/LooneyGov/';
         tryItBtn.classList.remove('hidden');
+        tryItBtn.style.display = 'inline-block';
     } else {
         tryItBtn.classList.add('hidden');
+        tryItBtn.style.display = 'none';
     }
 
     // Handle "Lab Website" button - use data from projectsData
@@ -950,8 +954,10 @@ function openProject(id) {
     if (data.labUrl) {
         labBtn.href = data.labUrl;
         labBtn.classList.remove('hidden');
+        labBtn.style.display = 'inline-block';
     } else {
         labBtn.classList.add('hidden');
+        labBtn.style.display = 'none';
     }
 
 

@@ -849,6 +849,9 @@ a {
     padding-top: 40px;
     align-items: flex-start;
     text-align: left;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
 }
 
 .detail-header {
@@ -1503,13 +1506,13 @@ a {
     .hud-item {
         padding: 10px 5px;
         flex: 1;
-        font-size: 1.2rem;
+        font-size: 1.4rem;
     }
 
     .hud-label {
         display: block !important;
         /* Always show on mobile */
-        font-size: 1.1rem;
+        font-size: 1.3rem;
     }
 
     .hud-pip {
@@ -1813,7 +1816,7 @@ a {
 
     /* Bottom Navigation */
     .hud-bottom {
-        font-size: 1.2rem;
+        font-size: 1.4rem;
         gap: 1rem;
         padding: 0.8rem 0.5rem;
     }
@@ -2061,6 +2064,8 @@ a {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
 }
 
 /* Header Info */
