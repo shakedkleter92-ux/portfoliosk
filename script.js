@@ -104,6 +104,7 @@ document.getElementById('btn-enter').addEventListener('click', () => {
 });
 
 
+
 // --- 2. SECTION MANAGER (SCROLL LOGIC - TUNED) ---
 document.addEventListener('wheel', handleScroll, { passive: false });
 
@@ -140,6 +141,43 @@ function handleScroll(e) {
         switchSection(nextIndex);
     }
 }
+
+// --- TOUCH SWIPE NAVIGATION FOR MOBILE ---
+let touchStartY = 0;
+let touchEndY = 0;
+const SWIPE_THRESHOLD = 50; // Minimum swipe distance in pixels
+
+document.addEventListener('touchstart', (e) => {
+    touchStartY = e.changedTouches[0].screenY;
+}, { passive: true });
+
+document.addEventListener('touchend', (e) => {
+    if (!isBooted || isAnimating) return;
+
+    touchEndY = e.changedTouches[0].screenY;
+    const swipeDistance = touchStartY - touchEndY;
+
+    // Check if swipe is significant enough
+    if (Math.abs(swipeDistance) < SWIPE_THRESHOLD) return;
+
+    // Determine direction (swipe up = next, swipe down = previous)
+    const direction = swipeDistance > 0 ? 1 : -1;
+
+    // SPECIAL CASE: PROJECTS CAROUSEL
+    if (SECTIONS[currentSectionIndex] === 'projects') {
+        const carouselMoved = rotateCarousel(direction);
+        if (carouselMoved) {
+            return;
+        }
+    }
+
+    // Normal Section Switching
+    const nextIndex = currentSectionIndex + direction;
+
+    if (nextIndex >= 0 && nextIndex < SECTIONS.length) {
+        switchSection(nextIndex);
+    }
+}, { passive: true });
 
 // Side HUD Click Listeners
 document.querySelectorAll('.hud-item').forEach(item => {
@@ -379,6 +417,13 @@ function closeProject() {
 }
 
 // --- 4. THREE.JS BACKGROUND (ADVANCED PARTICLE SYSTEM) ---
+// Mobile detection
+function isMobileDevice() {
+    const hasTouchScreen = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    const isSmallScreen = window.innerWidth <= 768;
+    return hasTouchScreen && isSmallScreen;
+}
+
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 const renderer = new THREE.WebGLRenderer({
@@ -388,8 +433,8 @@ const renderer = new THREE.WebGLRenderer({
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.getElementById('canvas-container').appendChild(renderer.domElement);
 
-// CONFIG
-const PARTICLE_COUNT = 20000; // 20k particles
+// CONFIG - Reduce particles on mobile
+const PARTICLE_COUNT = isMobileDevice() ? 5000 : 20000; // 5k on mobile, 20k on desktop
 const MOVEMENT_SPEED = 0.02; // Slower morphing for visible build effect
 const MOUSE_Radius = 2.0;
 const MOUSE_FORCE = 0.5;

@@ -73,6 +73,10 @@ class Folder {
         // Add click handler
         folder.addEventListener('click', () => this.handleClick());
 
+        // Add touch handlers for mobile
+        folder.addEventListener('touchstart', (e) => this.handleTouchStart(e), { passive: false });
+        folder.addEventListener('touchend', (e) => this.handleTouchEnd(e), { passive: false });
+
         this.folderElement = folder;
         this.backElement = back;
 
@@ -84,6 +88,22 @@ class Folder {
         if (this.onClick && this.projectId) {
             this.onClick(this.projectId);
         }
+    }
+
+    // Add touch support
+    handleTouchStart(e) {
+        // Prevent default to avoid double-firing on some devices
+        e.preventDefault();
+        // Add visual feedback
+        this.folderElement.style.transform = 'translateY(-8px)';
+    }
+
+    handleTouchEnd(e) {
+        e.preventDefault();
+        // Reset visual feedback
+        this.folderElement.style.transform = '';
+        // Trigger click action
+        this.handleClick();
     }
 
     destroy() {

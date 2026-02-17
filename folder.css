@@ -9,11 +9,15 @@
 
 .folders-container {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1rem;
+    /* Responsive grid: 4 columns on desktop, 3 on tablet, 2 on mobile */
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 1.5rem;
     max-width: 800px;
     margin: 0 auto;
     padding: 1rem 0;
+    /* Ensure proper spacing on mobile */
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .folder-wrapper {
@@ -42,6 +46,14 @@
     transition: all 0.2s ease-in;
     cursor: pointer;
     position: relative;
+    /* Ensure minimum touch target size */
+    min-width: 44px;
+    min-height: 44px;
+}
+
+/* Touch-friendly active state */
+.folder:active {
+    transform: translateY(-8px);
 }
 
 .folder:hover {
@@ -163,4 +175,75 @@
 /* Scale for larger folders */
 .folder-scale {
     transform: scale(1.5);
+}
+
+/* ========================================
+   MOBILE RESPONSIVE STYLES
+   ======================================== */
+
+/* Tablet and below - 3 columns */
+@media (max-width: 1024px) {
+    .folders-container {
+        grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+        gap: 1.2rem;
+        padding: 1rem 0.5rem;
+    }
+
+    .folder-wrapper {
+        gap: 0.8rem;
+    }
+
+    .folder-label {
+        font-size: 0.75rem;
+    }
+}
+
+/* Mobile - 3 columns */
+@media (max-width: 768px) {
+    .folders-container {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
+        padding: 1rem 0.5rem;
+        max-width: 100%;
+    }
+
+    .folder-wrapper {
+        gap: 0.4rem;
+    }
+
+    .folder__back {
+        width: 85px;
+        height: 68px;
+    }
+
+    .folder__back::after {
+        width: 28px;
+        height: 9px;
+    }
+
+    .folder-label {
+        font-size: 0.7rem;
+    }
+}
+
+/* Small mobile - 3 columns with slightly smaller folders */
+@media (max-width: 480px) {
+    .folders-container {
+        gap: 0.8rem;
+        padding: 0.5rem;
+    }
+
+    .folder__back {
+        width: 75px;
+        height: 60px;
+    }
+
+    .folder__back::after {
+        width: 25px;
+        height: 8px;
+    }
+
+    .folder-label {
+        font-size: 0.65rem;
+    }
 }
