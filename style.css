@@ -1783,17 +1783,14 @@ a {
         box-shadow: inset 0 0 0 8px transparent, inset 0 0 0 9px var(--neon-green);
     }
 
-    /* Prevent scroll jump on mobile */
+    /* Prevent scroll bounce on mobile */
     body {
-        position: fixed;
-        width: 100%;
-        overflow: hidden;
+        overscroll-behavior-y: none;
+        -webkit-overflow-scrolling: touch;
     }
 
     #main-interface {
-        height: 100vh;
-        overflow-y: auto;
-        -webkit-overflow-scrolling: touch;
+        overscroll-behavior-y: contain;
     }
 
     /* Header - ultra compact */
