@@ -1506,13 +1506,13 @@ a {
     .hud-item {
         padding: 10px 5px;
         flex: 1;
-        font-size: 1.4rem;
+        font-size: 1.6rem;
     }
 
     .hud-label {
         display: block !important;
         /* Always show on mobile */
-        font-size: 1.3rem;
+        font-size: 1.5rem;
     }
 
     .hud-pip {
@@ -1783,6 +1783,19 @@ a {
         box-shadow: inset 0 0 0 8px transparent, inset 0 0 0 9px var(--neon-green);
     }
 
+    /* Prevent scroll jump on mobile */
+    body {
+        position: fixed;
+        width: 100%;
+        overflow: hidden;
+    }
+
+    #main-interface {
+        height: 100vh;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
     /* Header - ultra compact */
     .frame-header {
         padding: 0 10px;
@@ -1816,7 +1829,7 @@ a {
 
     /* Bottom Navigation */
     .hud-bottom {
-        font-size: 1.4rem;
+        font-size: 1.6rem;
         gap: 1rem;
         padding: 0.8rem 0.5rem;
     }
