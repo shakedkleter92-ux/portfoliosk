@@ -79,29 +79,7 @@ function initSections() {
     document.getElementById('project-detail-overlay').classList.add('hidden-section');
 }
 
-document.getElementById('btn-enter').addEventListener('click', () => {
-    // 1. Play Sound
-    const audio = new Audio('woosh.mp3');
-    audio.volume = 0.6;
-    audio.play().catch(e => console.log("Audio play failed interaction required", e));
-
-    // 2. Trigger Sphere Build
-    targetPos = layouts.sphere;
-    material.color.setHex(0x39FF14); // Ensure it's green
-
-    // 3. UI Transition
-    bootScreen.style.transition = 'opacity 1s ease';
-    bootScreen.style.opacity = '0';
-
-    setTimeout(() => {
-        bootScreen.classList.add('hidden');
-        mainInterface.classList.remove('hidden');
-        isBooted = true;
-
-        // Initialize 3D Carousel only after boot ensures DOM is ready
-        initCarousel();
-    }, 1000);
-});
+// Button event listener will be added after layouts are initialized
 
 
 
@@ -509,6 +487,31 @@ document.addEventListener('touchstart', (e) => {
         mouseY = -(touch.clientY / window.innerHeight) * 2 + 1;
     }
 }, { passive: true });
+
+// BUTTON EVENT LISTENER - After layouts are initialized
+document.getElementById('btn-enter').addEventListener('click', () => {
+    // 1. Play Sound
+    const audio = new Audio('woosh.mp3');
+    audio.volume = 0.6;
+    audio.play().catch(e => console.log("Audio play failed interaction required", e));
+
+    // 2. Trigger Sphere Build
+    targetPos = layouts.sphere;
+    material.color.setHex(0x39FF14); // Ensure it's green
+
+    // 3. UI Transition
+    bootScreen.style.transition = 'opacity 1s ease';
+    bootScreen.style.opacity = '0';
+
+    setTimeout(() => {
+        bootScreen.classList.add('hidden');
+        mainInterface.classList.remove('hidden');
+        isBooted = true;
+
+        // Initialize 3D Carousel only after boot ensures DOM is ready
+        initCarousel();
+    }, 1000);
+});
 
 // SECTION LISTENER TO TRIGGER EXPLODE -> REBUILD
 function updateBackgroundState(sectionId) {
