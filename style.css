@@ -2312,9 +2312,16 @@ a {
     cursor: pointer;
     transition: all 0.2s ease;
     z-index: 10002;
-    /* Ensure minimum touch target size */
     min-width: 44px;
     min-height: 44px;
+}
+
+.lightbox-nav-left {
+    left: -70px;
+}
+
+.lightbox-nav-right {
+    right: -70px;
 }
 
 .lightbox-nav:hover,
@@ -2356,7 +2363,7 @@ a {
 
     .lightbox-content img,
     .lightbox-content video {
-        max-height: 80vh;
+        max-height: 75vh;
     }
 }
 
@@ -2375,7 +2382,7 @@ a {
 
 /* Lightbox Navigation Arrows */
 .lightbox-close-btn {
-    position: absolute;
+    position: fixed;
     top: 20px;
     right: 20px;
     background: transparent;
@@ -2385,8 +2392,7 @@ a {
     padding: 0.5rem 1rem;
     cursor: pointer;
     transition: all 0.2s ease;
-    z-index: 10002;
-    /* Ensure minimum touch target size */
+    z-index: 10003;
     min-width: 44px;
     min-height: 44px;
 }
