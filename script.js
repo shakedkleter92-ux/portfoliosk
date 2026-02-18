@@ -448,7 +448,7 @@ const geometry = new THREE.BufferGeometry();
 geometry.setAttribute('position', new THREE.BufferAttribute(currentPos, 3));
 
 const material = new THREE.PointsMaterial({
-    size: 0.08, // Increased size for much better visibility (3.2x larger)
+    size: 0.05,
     color: 0x39FF14,
     transparent: true,
     opacity: 0.9,
